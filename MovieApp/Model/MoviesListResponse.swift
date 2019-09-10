@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PopularMoviesResponse: NSObject, Codable {
+class MoviesListResponse: NSObject, Codable {
     var page: Int?
     var totalResults: Int?
     var totalPages: Int?

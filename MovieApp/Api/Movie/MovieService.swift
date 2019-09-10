@@ -1,14 +1,16 @@
 //
 //  MovieService.swift
-//  Movs
+//  MovieApp
 //
-//  Created by Jonathan Pereira Bijos on 27/02/18.
-//  Copyright © 2018 Jonathan Bijos. All rights reserved.
+//  Created by Venugopal S A on 08/09/19.
+//  Copyright © 2019 Venugopal S A. All rights reserved.
 //
 
 import Foundation
 
-protocol MovieService: Service {
-    func getPopularMovies(page: Int, completion: @escaping Response<PopularMoviesResponse>)
+protocol MovieService {
+    func getPopularMovies(page: Int, completion: @escaping Response<MoviesListResponse>)
     func getGenres(completion: @escaping Response<[Genre]>)
+    func getNowPlayingMovies(page: Int, completion: @escaping Response<MoviesListResponse>)
+    func getMovieDetails(movteID: Int, completion: @escaping Response<MovieDetails>)
 }

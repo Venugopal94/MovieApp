@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Cache
 
 class Movie: NSObject, Codable {
     var voteCount: Int?
@@ -29,31 +28,7 @@ class Movie: NSObject, Codable {
     override init() {
         super.init()
     }
-    
-    static fileprivate var cachedMovies: [Movie] = []
-    
-    class func saveCachedMovies(_ movies: [Movie]) {
-        guard let storage = Storage.shared() else {
-            return
-        }
         
-        cachedMovies = movies
-        try? storage.setObject(movies, forKey: "movies")
-    }
-    class func getCachedMovies() -> [Movie] {
-        if !cachedMovies.isEmpty {
-            return cachedMovies
-        }
-        guard let storage = Storage.shared() else {
-            return []
-        }
-        var movies: [Movie] = []
-        if let _movies = try? storage.object(ofType: [Movie].self, forKey: "movies") {
-            movies = _movies
-        }
-        return movies
-    }
-    
     var formattedReleaseDate: Date? {
         if let releaseDate = releaseDate {
             let dateFormatter = DateFormatter()

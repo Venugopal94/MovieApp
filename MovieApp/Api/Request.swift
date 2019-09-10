@@ -1,9 +1,9 @@
 //
 //  Request.swift
-//  Movs
+//  MovieApp
 //
-//  Created by Jonathan Bijos on 28/02/18.
-//  Copyright © 2018 Jonathan Bijos. All rights reserved.
+//  Created by Venugopal S A on 08/09/19.
+//  Copyright © 2019 Venugopal S A. All rights reserved.
 //
 
 import UIKit

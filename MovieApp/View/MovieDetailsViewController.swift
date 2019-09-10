@@ -13,6 +13,7 @@ class MovieDetailsViewController: UIViewController {
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var detailsTableView: UITableView!
+    @IBOutlet weak var loader: UIView!
     
     let movieDetailVM = MovieDetailsVM()
     var movieId: Int?
@@ -23,10 +24,11 @@ class MovieDetailsViewController: UIViewController {
         case runTime
         case rating
         case numberVotes
+        case relaseDate
+        case originalLanguage
         
         var title: String {
             switch self {
-                
             case .genre:
                 return  "Genre"
             case .overview:
@@ -37,6 +39,10 @@ class MovieDetailsViewController: UIViewController {
                 return "Rating"
             case .numberVotes:
                 return "Number Votes"
+            case .relaseDate:
+                return "Release Date"
+            case .originalLanguage:
+                return "Original Language"
             }
         }
         
@@ -49,12 +55,14 @@ class MovieDetailsViewController: UIViewController {
     }
     
     func getMovieDetails()  {
+        loader.isHidden = false
         guard let movieID = movieId else {
             return
         }
         movieDetailVM.getMovieDetail(movieID: movieID) {[weak self] (isSuccess) in
-            if isSuccess {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.loader.isHidden = true
+                if isSuccess {
                     self?.detailsTableView.reloadData()
                     self?.posterImage.sd_setImage(with: URL(string: self?.movieDetailVM.movieDetails.posterUrlString ?? ""), placeholderImage: UIImage(named: ".png"))
                 }
@@ -87,11 +95,15 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
         case .overview:
             cell.descriptiion.text = movieDetailVM.movieDetails.overview
         case .runTime:
-            cell.descriptiion.text = "\(movieDetailVM.movieDetails.runtime ?? 0)"
+            cell.descriptiion.text = "\(movieDetailVM.movieDetails.runtime ?? 0) min"
         case .rating:
             cell.descriptiion.text = "\(movieDetailVM.movieDetails.vote_average ?? 0)" + "/" + "10"
         case .numberVotes:
             cell.descriptiion.text = "\(movieDetailVM.movieDetails.vote_count ?? 0)"
+        case .relaseDate:
+            cell.descriptiion.text = "\(movieDetailVM.movieDetails.formattedReleaseDate ?? Date())"
+        case .originalLanguage:
+            cell.descriptiion.text = movieDetailVM.movieDetails.original_language
         }
         
         return cell
