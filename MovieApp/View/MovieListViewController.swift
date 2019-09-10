@@ -95,6 +95,10 @@ extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigateToMovieDetails(indexPath: indexPath)
+    }
+    
+    func navigateToMovieDetails(indexPath: IndexPath) {
         guard let movieDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else {
             return
         }
